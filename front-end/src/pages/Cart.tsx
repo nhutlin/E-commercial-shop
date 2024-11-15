@@ -1,7 +1,8 @@
-import { Fragment, useEffect, useState } from "react";
-
+import { Fragment, useEffect, useState } from "react"
 import "../Style/Cart.css";
 import NavBar from "../component/NavBar";
+
+const cart_service = import.meta.env.CART_URL;
 function Cart() {
 
   const [cartData, setCartData] = useState({ total: 0, Products: [] });
@@ -18,7 +19,7 @@ function Cart() {
           return;
         }
 
-        const response = await fetch("http://localhost:3003/cart", {
+        const response = await fetch(`${cart_service}/cart`, {
           headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + token,

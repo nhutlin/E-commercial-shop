@@ -1,22 +1,50 @@
 version: '3'
 services:
-  user:
-    image: user
+  user_service:
+    container_name: user_service
     build:
-      context: ../User/Dockerfile
+      context: ./User
     ports:
-      - "3001:3001"
-    command: node server.js
+      - "9001:9001"
+    env_file:
+      - .env
+    command: npm run start
+    networks:
+      - app-network
+  cart_service:
+    container_name: cart_service
+    build:
+      context: ./Cart
+    ports:
+      - "9003:9003"
+    env_file:
+      - .env
+    command: npm run start 
+    networks:
+      - app-network
 
-  cart:
-    image: ../Cart/Dockerfile
+  product_service:
+    container_name: product_service
+    build:
+      context: ./Product
     ports:
-      - "3003:3003"
-    command: node server.js  
-
-  product:
-    image: ../Product/Dockerfile
+      - "9000:9000"
+    command: npm run start
+    env_file:
+      - .env
+    networks:
+      - app-network
+  front-end:
+    container_name: front-end
+    build:
+      context: ./front-end
     ports:
-      - "3002:3002"
-    command: node server.js
-    
+      - "5173:5173"
+    env_file:
+      - .env
+    command: npm run dev
+    networks:
+      - app-network
+networks:
+  app-network:
+    external: true

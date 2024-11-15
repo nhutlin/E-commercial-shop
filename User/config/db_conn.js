@@ -53,7 +53,7 @@ mongoose.connect(`mongodb+srv://${mongo_username}:${mongo_password}@${mongo_clus
 //   main().catch(console.error);
 
 
-// mongoose.connect(`mongodb://localhost:27017`
+// mongoose.connect(`mongodb://172.17.0.1:27017/devops_project`
 // , { useNewUrlParser: true, useUnifiedTopology: true })
 // .then(() => console.log(`Connected to: DB`))
 // .catch(err => console.log(err));

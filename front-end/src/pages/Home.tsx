@@ -3,6 +3,9 @@ import "../Style/home.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Card from "../component/card";
 
+const product_service = import.meta.env.PRODUCT_URL;
+console.log("test" ,product_service)
+
 function Home() {
   const [data, setData] = useState([]);
   const [selectedOption, setSelectedOption] = useState("idle");
@@ -15,7 +18,7 @@ function Home() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:3002/products", {
+      const response = await fetch("http://product_service:9000/products", {
         headers: {
           "Content-Type": "application/json",
         },
@@ -43,7 +46,7 @@ function Home() {
     if (selectedCategory === "idle") {
       fetchData();
     } else {
-      fetch(`http://localhost:3002/filter/category/${selectedCategory}`, {
+      fetch(`${product_service}/filter/category/${selectedCategory}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

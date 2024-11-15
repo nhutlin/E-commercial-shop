@@ -9,6 +9,10 @@ import clip4 from "../assets/clip-04.jpg";
 import profile from "../assets/profile.jpg";
 import profileg from "../assets/profileGirl.jpg";
 import { useState, useEffect, Fragment } from "react";
+
+
+const user_service = import.meta.env.USER_URL;
+
 function Profile() {
 
 
@@ -17,7 +21,7 @@ function Profile() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      fetch("http://localhost:3001/users/", {
+      fetch(`${user_service}/users/`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
