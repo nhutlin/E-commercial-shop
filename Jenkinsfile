@@ -2,9 +2,8 @@ pipeline {
     agent any
     
     environment {
-        AWS_REGION = 'us-east-1'
-        ECR_REPO = 'ecr-node-app'
-        AWS_ACCOUNT_ID = '63########2'
+        AWS_REGION = 'ap-southeast-2'
+        ECR_REPO = 'group18/devops_project'
         URL_REGISTRY = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
     }
     
