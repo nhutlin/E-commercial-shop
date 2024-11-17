@@ -17,7 +17,7 @@ pipeline {
         stage('Build and Push Docker Image') {
             steps {
                 script {
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'your-aws-credentials-id']]) {                   
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'ecr-demo-credential']]) {                   
                         sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${URL_REGISTRY}"
 
                         // Build Docker image
