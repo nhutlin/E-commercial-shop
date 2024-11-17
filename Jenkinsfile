@@ -19,15 +19,18 @@ pipeline {
                 script {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'ecr-demo-credential']]) {                   
                         sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${URL_REGISTRY}"
+                        
+                        sh "docker build -t ${URL_REGISTRY}/${ECR_REPO}:frontend ./front-end"
+                        sh "docker build -t ${URL_REGISTRY}/${ECR_REPO}:cart_service ./Cart"
+                        sh "docker build -t ${URL_REGISTRY}/${ECR_REPO}:product_service ./Product"
+                        sh "docker build -t ${URL_REGISTRY}/${ECR_REPO}:user_service ./User"
+                        
 
-                        // Build Docker image
-                        sh "docker build -t $ECR_REPO ."
-
-                        // Tag Docker image
-                        sh "docker tag $ECR_REPO:latest ${URL_REGISTRY}/$ECR_REPO:latest"
-
-                        // Push Docker image to ECR
-                        sh "docker push ${URL_REGISTRY}/$ECR_REPO:latest"
+                        sh "docker push ${URL_REGISTRY}/${ECR_REPO}:frontend"
+                        sh "docker push ${URL_REGISTRY}/${ECR_REPO}:cart_service"
+                        sh "docker push ${URL_REGISTRY}/${ECR_REPO}:product_service"
+                        sh "docker push ${URL_REGISTRY}/${ECR_REPO}:user_service"
+                        
                     }
                 }
             }
